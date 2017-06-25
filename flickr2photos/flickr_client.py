@@ -9,7 +9,7 @@ class FlickrClient(object):
 
     def __init__(self):
         credentials = json.load(open('credentials.json'))
-        self.client = flickrapi.FlickrAPI(format='parsed-json', **credentials)
+        self.client = flickrapi.FlickrAPI(format='parsed-json', **credentials['flickr'])
         self.authenticate()
 
     def authenticate(self):
