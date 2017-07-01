@@ -3,13 +3,13 @@
 This utility downloads all images from Flickr into your local hard
 drive.
 
+
 ## Usage
 
 Create your credentials file `credentials.json` (see example in
 `credentials.sample.json` and install requirements:
 
-    pip install -r requirements.txt
-    sudo apt-get install rabbitmq-server
+    sudo apt-get install rabbitmq-server python-virtualenv
 
 
 ### Simple Usage
