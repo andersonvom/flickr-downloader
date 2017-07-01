@@ -11,6 +11,16 @@ Create your credentials file `credentials.json` (see example in
     pip install -r requirements.txt
     sudo apt-get install rabbitmq-server
 
+
+### Simple Usage
+
+Just run the `go` script and wait (a really long time) for your files to
+be downloaded.
+
+    ./go
+
+### Advanced Usage
+
 Download picture info from Flickr. The first time you run this command
 you will be prompted to authorize access to your Flickr account:
 
