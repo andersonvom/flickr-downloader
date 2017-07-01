@@ -14,3 +14,5 @@ do
 done
 
 python save_photos.py
+
+tail -f worker*.log
