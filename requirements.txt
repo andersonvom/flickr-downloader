@@ -1,2 +1,3 @@
+celery
 flickrapi
-gdata
+imagehash
