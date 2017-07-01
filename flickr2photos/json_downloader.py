@@ -28,8 +28,6 @@ def process_json(set_info, photo):
     dir_path = os.path.join(BASE_DIR, set_title)
     file_path = get_json_name(dir_path, photo)
     os.makedirs(dir_path, exist_ok=True)
-    if os.path.isfile(file_path):
-        print('ERROR-FileExists:' + file_path)
     json.dump(photo, open(file_path, 'w'))
     print('Saved: %s - %s' % (set_title, file_path))
 
