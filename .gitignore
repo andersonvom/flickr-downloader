@@ -2,3 +2,5 @@
 credentials.json
 __pycache__
 *.pyc
+json_files
+image_files
