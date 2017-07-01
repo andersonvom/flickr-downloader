@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 killall celery
+
+virtualenv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
 python save_json.py
 
 for i in $(seq 4)
