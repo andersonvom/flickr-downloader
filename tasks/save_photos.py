@@ -16,6 +16,10 @@ app = Celery('tasks', broker='pyamqp://guest@localhost//')
 def process_photo(json_path):
     json_file = open(json_path, 'r+')
     photo = json.load(json_file)
+    if '_dhash' in photo:
+        print('Skipped: %s (already exists)' % json_path)
+        return
+
     temp_file = download(photo['url_o'])
     photo['_dhash'] = str(calculate_hash(temp_file))
     store(json_path, photo, temp_file)
