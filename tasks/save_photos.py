@@ -13,16 +13,16 @@ app = Celery('tasks', broker='pyamqp://guest@localhost//')
 
 
 @app.task
-def process_photo(path):
-    json_file = open(path, 'r+')
+def process_photo(json_path):
+    json_file = open(json_path, 'r+')
     photo = json.load(json_file)
     temp_file = download(photo['url_o'])
     photo['_dhash'] = str(calculate_hash(temp_file))
-    store(path, photo, temp_file)
+    store(json_path, photo, temp_file)
     json_file.seek(0)
     json.dump(photo, json_file)
     json_file.close()
-    print("Done: %s" % path)
+    print("Done: %s" % json_path)
 
 
 def download(url, retries = 0):
