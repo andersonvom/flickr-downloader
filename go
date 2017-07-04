@@ -2,7 +2,7 @@
 
 set -e
 
-killall celery
+killall celery 2> /dev/null || true
 
 virtualenv .venv
 source .venv/bin/activate
