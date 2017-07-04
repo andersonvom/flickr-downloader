@@ -28,8 +28,26 @@ def process_json(set_info, photo):
     dir_path = os.path.join(BASE_DIR, set_title)
     file_path = get_json_name(dir_path, photo)
     os.makedirs(dir_path, exist_ok=True)
-    json.dump(photo, open(file_path, 'w'))
+
+    local_photo, local_fp = load_existing_json(path)
+    local_photo.update(photo)
+
+    json.dump(local_photo, local_fp)
+    local_fp.close()
     print('Saved: %s - %s' % (set_title, file_path))
+
+
+def load_existing_json(path):
+    if os.path.isfile(path):
+        local_fp = open(path, 'r+')
+        local_photo = json.load(local_fp)
+        local_fp.seek(0)
+    else:
+        local_fp = open(path, 'w')
+        local_photo = {}
+
+    return local_photo, local_fp
+
 
 def get_json_name(dir_path, photo):
     return os.path.join(dir_path, photo['id']) + '.json'
