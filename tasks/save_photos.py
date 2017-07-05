@@ -57,7 +57,7 @@ def photo_path(photo_dir, photo):
     title += ' - ' + photo['id']
     name, ext = os.path.splitext(photo['url_o'])
     if ext == "":
-        if name.startswith("VID"):
+        if photo['media'] == 'video':
             ext = 'mp4'
         else:
             print("***ERROR***: NoExtension: %s" % photo['id'])
