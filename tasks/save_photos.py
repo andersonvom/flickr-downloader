@@ -22,7 +22,7 @@ def process_photo(json_path):
             return
 
         temp_file = download(photo['url_o'])
-        photo['_dhash'] = str(calculate_hash(temp_file))
+        photo['_dhash'] = str(calculate_hash(temp_file, photo))
         store(json_path, photo, temp_file)
         json_file.seek(0)
         json.dump(photo, json_file)
@@ -42,8 +42,11 @@ def download(url, retries = 0):
     return path1
 
 
-def calculate_hash(path):
-    return imagehash.dhash(Image.open(path))
+def calculate_hash(path, photo):
+    if photo['media'] == 'photo':
+        return imagehash.dhash(Image.open(path))
+    else:
+        return 'NoHash-NotAPhoto'
 
 
 def photo_path(photo_dir, photo):
