@@ -63,7 +63,11 @@ def photo_path(photo_dir, photo):
             print("***ERROR***: NoExtension: %s" % photo['id'])
 
     title += ext
-    return os.path.join(photo_dir, title)
+    return os.path.join(photo_dir, sanitize_title(title))
+
+
+def sanitize_title(title):
+    return title.replace('/', '-')
 
 
 def store(json_file, photo, filepath):
