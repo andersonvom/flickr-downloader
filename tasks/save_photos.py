@@ -12,7 +12,7 @@ from PIL import Image
 app = Celery('tasks', broker='pyamqp://guest@localhost//')
 
 
-@app.task
+@app.task(autoretry_for=(Exception,), retry_backoff=True)
 def process_photo(json_path):
     try:
         json_file = open(json_path, 'r+')

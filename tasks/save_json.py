@@ -8,7 +8,7 @@ app = Celery('tasks', broker='pyamqp://guest@localhost//')
 BASE_DIR = 'json_files'
 
 
-@app.task
+@app.task(autoretry_for=(Exception,), retry_backoff=True)
 def process_json(set_info, photo):
     set_title = set_info['title']['_content']
     photo_title = photo['title']
