@@ -21,11 +21,6 @@ be downloaded.
 
 ### Advanced Usage
 
-Download picture info from Flickr. The first time you run this command
-you will be prompted to authorize access to your Flickr account:
-
-    python save_json.py
-
 Start your celery workers:
 
     for i in $(seq 4)
@@ -33,7 +28,9 @@ Start your celery workers:
       (celery -A tasks.save_photos worker --loglevel=warning --concurrency 8 -n worker${i}@%h &> worker-${i}.log) &
     done
 
-Kick off image downloading:
+
+Kick off image downloading. The first time you run this command you will
+be prompted to authorize access to your Flickr account:
 
     python save_photos.py
 
