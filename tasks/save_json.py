@@ -1,25 +1,14 @@
 import json
 import os
+from celery import Celery
 
-from .flickr_client import FlickrClient
-from .error_handler import handle
+from tasks.save_photos import process_photo
 
-
+app = Celery('tasks', broker='pyamqp://guest@localhost//')
 BASE_DIR = 'json_files'
-MAX_RETIES = 5
 
 
-class JsonDownloader(object):
-    def __init__(self):
-        print('Starting flickr')
-        self.client = FlickrClient()
-        print('Initialized')
-
-    def start(self):
-        for info in self.client.walk_photos():
-            handle(process_json, **info)
-
-
+@app.task
 def process_json(set_info, photo):
     set_title = set_info['title']['_content']
     photo_title = photo['title']
@@ -35,6 +24,7 @@ def process_json(set_info, photo):
     json.dump(local_photo, local_fp)
     local_fp.close()
     print('Saved: %s - %s' % (set_title, json_path))
+    process_photo.delay(json_path)
 
 
 def load_existing_json(json_path):

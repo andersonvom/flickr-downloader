@@ -1,14 +1,16 @@
-import os
+import time
 
-from tasks.save_photos import process_photo
+from flickr2photos.flickr_client import FlickrClient
+from tasks.save_json import process_json
 
 
-def start():
-    for dirname, subdirs, filenames in os.walk('json_files'):
-        print('Queueing: %s' % dirname)
-        for filename in filenames:
-            process_photo.delay('%s/%s' % (dirname, filename))
+def main():
+    client = FlickrClient()
+    for info in client.walk_photos():
+        process_json.delay(**info)
 
 
 if __name__ == "__main__":
-    start()
+    while True:
+        main()
+        time.sleep(120)
