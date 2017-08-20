@@ -10,6 +10,6 @@ do
   (celery -A tasks.save_json worker --loglevel=warning --concurrency 8 -n worker${i}@%h &> worker-${i}.log) &
 done
 
-python save_photos.py &
+python start.py &
 trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 tail -f worker*.log
