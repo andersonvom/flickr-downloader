@@ -23,7 +23,6 @@ def process_json(set_info, photo):
 
     json.dump(local_photo, local_fp)
     local_fp.close()
-    print('Saved: %s - %s' % (set_title, json_path))
     process_photo.delay(json_path)
 
 
