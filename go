@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-
 set -e
-
-killall celery 2> /dev/null || true
 
 virtualenv .venv
 source .venv/bin/activate
@@ -16,5 +13,5 @@ do
 done
 
 python save_photos.py
-
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 tail -f worker*.log
