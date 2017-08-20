@@ -1,6 +1,6 @@
 import time
 
-from flickr2photos.flickr_client import FlickrClient
+from flickr_downloader.flickr_client import FlickrClient
 from tasks.save_json import process_json
 
 
