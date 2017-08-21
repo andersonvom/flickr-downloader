@@ -47,19 +47,15 @@ def calculate_hash(path, photo):
 
 
 def photo_path(photo_dir, photo):
+    ext = photo['originalformat']
+    if photo['media'] == 'video':
+        ext = 'mp4'
+
     title = photo['title']
     if title in ['', '.']:
         title = photo['datetaken']
 
-    title += ' - ' + photo['id']
-    name, ext = os.path.splitext(photo['url_o'])
-    if ext == "":
-        if photo['media'] == 'video':
-            ext = 'mp4'
-        else:
-            print("***ERROR***: NoExtension: %s" % photo['id'])
-
-    title += ext
+    title += ' - ' + photo['id'] + ext
     return os.path.join(photo_dir, sanitize_title(title))
 
 

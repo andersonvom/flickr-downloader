@@ -13,6 +13,7 @@ class FlickrClient(object):
         'date_upload',
         'last_update',
         'media',
+        'original_format',
         'tags',
         'url_o',
     ]
