@@ -8,6 +8,14 @@ class FlickrClient(object):
     PER_PAGE = 500
 
     client = None
+    photo_attrs = [
+        'date_taken',
+        'date_upload',
+        'last_update',
+        'media',
+        'tags',
+        'url_o',
+    ]
 
     def __init__(self):
         credentials = json.load(open('credentials.json'))
@@ -36,7 +44,7 @@ class FlickrClient(object):
         args = {
             'page': str(page),
             'photoset_id': a_set['id'],
-            'extras': ','.join(['url_o', 'tags', 'media', 'date_upload', 'date_taken', 'last_update']),
+            'extras': ','.join(self.photo_attrs),
         }
         return handle(self.client.photosets.getPhotos, **args)['photoset']
 
