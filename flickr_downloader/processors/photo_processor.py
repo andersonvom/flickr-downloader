@@ -8,6 +8,10 @@ import urllib.request
 
 from PIL import Image
 
+from flickr_downloader.processors import json_processor
+
+BASE_DIR = 'image_files'
+
 
 def process_photo(json_path):
     try:
@@ -64,7 +68,7 @@ def sanitize_title(title):
 
 
 def store(json_file, photo, filepath):
-    photo_dir = os.path.dirname(json_file).replace('json_files', 'image_files')
+    photo_dir = os.path.dirname(json_file).replace(json_processor.BASE_DIR, BASE_DIR)
     os.makedirs(photo_dir, exist_ok=True)
     final_location = photo_path(photo_dir, photo)
     shutil.move(filepath, final_location)
