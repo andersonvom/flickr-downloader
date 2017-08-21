@@ -6,13 +6,9 @@ import os
 import shutil
 import urllib.request
 
-from celery import Celery
 from PIL import Image
 
-app = Celery('tasks', broker='pyamqp://guest@localhost//')
 
-
-@app.task(autoretry_for=(Exception,), retry_backoff=True)
 def process_photo(json_path):
     try:
         json_file = open(json_path, 'r+')
@@ -30,6 +26,7 @@ def process_photo(json_path):
         print("Done: %s" % json_path)
     except Exception as e:
         print('ERROR: %s \n %s' % (e, photo))
+        raise
 
 
 def download(url, retries = 0):

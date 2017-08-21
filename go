@@ -7,7 +7,7 @@ pip install -r requirements.txt
 
 for i in $(seq 2)
 do
-  (celery -A tasks.save_json worker --loglevel=warning --concurrency 8 -n worker${i}@%h &> worker-${i}.log) &
+  (celery -A tasks.tasks worker --loglevel=warning --concurrency 8 -n worker${i}@%h &> worker-${i}.log) &
 done
 
 python start.py &

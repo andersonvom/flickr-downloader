@@ -1,14 +1,9 @@
 import json
 import os
-from celery import Celery
 
-from tasks.save_photos import process_photo
-
-app = Celery('tasks', broker='pyamqp://guest@localhost//')
 BASE_DIR = 'json_files'
 
 
-@app.task(autoretry_for=(Exception,), retry_backoff=True)
 def process_json(set_info, photo):
     set_title = set_info['title']['_content']
     photo_title = photo['title']
@@ -23,7 +18,7 @@ def process_json(set_info, photo):
 
     json.dump(local_photo, local_fp)
     local_fp.close()
-    process_photo.delay(json_path)
+    return json_path
 
 
 def load_existing_json(json_path):
