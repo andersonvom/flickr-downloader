@@ -19,6 +19,10 @@ be downloaded.
 
     ./go
 
+Or, if you want more information being output:
+
+    DEBUG=1 ./go
+
 ### Advanced Usage
 
 Start your celery workers:

@@ -18,7 +18,8 @@ def process_photo(json_path):
         json_file = open(json_path, 'r+')
         photo = json.load(json_file)
         if '_dhash' in photo:
-            print('Skipped: %s (already exists)' % json_path)
+            if os.environ.get('DEBUG') != None:
+                print('Skipped: %s (already exists)' % json_path)
             return
 
         temp_file = download(photo['url_o'])
